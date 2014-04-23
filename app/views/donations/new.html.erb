@@ -1,12 +1,35 @@
-<%= form_tag donations_path do %>
-  <article>
-    <label class="amount">
-      <span>Amount: $20.00</span>
-    </label>
-  </article>
-
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="A month's subscription"
-          data-amount="2000"></script>
+ <h1>Make a $20 Donation!</h1>
+  <%= form_for @donation do |f| %>
+    <% if @donation.errors.any? %>
+      <div class="error_messages">
+        <h2><%= pluralize(@donation.errors.count, "error") %> prohibited this donation from being saved:</h2>
+        <ul>
+        <% @donation.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <div class="form_group">
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  </div>
+  <div class="form_group">
+    <%= f.hidden_field :donation_amount, :value => 20.00 %>
+  </div>
+   <div class="form_group">
+    <%= label_tag :cvc_code %>
+    <%= text_field_tag :cvc %>
+  </div>
+   <div class="form_group">
+    <%= label_tag :card_month, "Card Expiration" %>
+    <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "exp_month"}%>
+    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "exp_year"}%>
+  </div>
+ <%= f.fields_for :users do |x| %>
+     <div class="form-group">
+        <%= x.label :card_number %></br>
+        <%= x.text_field :stripe_Token %>
+      </div>
+    <% end %>
+<div class="actions"> <%= f.submit(:class => "btn btn-primary") %> </div>
 <% end %>

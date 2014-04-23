@@ -7,12 +7,13 @@ def new
   @donation = Donation.new
 end
 def create
+  binding.pry
   # Amount in cents
   @amount = 2000
 
   customer = Stripe::Customer.create(
     :email => 'current_user.email',
-    :card  => params[:stripeToken]
+    :card  => params[:stripe_Token]
   )
 
   charge = Stripe::Charge.create(
@@ -30,6 +31,6 @@ end
 
 private
   def donation_params
-    params.require(:donation).permit(:card, :stripeToken, :number, :cvc, :user_id, :charity_id, :donation_amount)
+    params.require(:donation).permit(:card,:number, :cvc, :user_id, :charity_id, :donation_amount, :user_attributes =>[:id, :stripe_Token, :email, :name])
   end
 end

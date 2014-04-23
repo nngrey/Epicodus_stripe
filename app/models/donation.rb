@@ -2,6 +2,7 @@ class Donation < ActiveRecord::Base
   # before_create :charge_card
   belongs_to :user
   belongs_to :charity
+  accepts_nested_attributes_for :user
 
 # private
 #   def charge_card
