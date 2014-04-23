@@ -36,6 +36,9 @@
     <div class="alert alert-danger">
       <%= flash[:alert] %>
     </div>
+  <% elsif flash[:error] %>
+    <div class="alert alert-danger">
+        <%= flash[:error] %>
   <% end %>
 
 <%= yield %>

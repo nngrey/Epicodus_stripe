@@ -1,8 +1,10 @@
 <h2> <%= @charity.name %> </h2>
 
 <%= @charity.description %>
-
+<br>
+<p><%= link_to "Make a Donation To This Charity", new_donation_path, :class => "btn btn-default" %></p>
 <br><br>
+
 <p><%= link_to "Edit this charity", edit_charity_path(@charity), :class => "btn btn-default" %></p>
 <p><%= link_to "Delete this charity", charity_path(@charity),
                          :confirm => "You sure?",
