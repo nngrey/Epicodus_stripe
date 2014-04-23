@@ -1,0 +1,16 @@
+<%= render 'layouts/errors', :object => @charity %>
+
+<%= form_for @charity do |f| %>
+
+  <div class = "form-group">
+    <%=f.label :name, "Enter Name" %><br>
+    <%=f.text_field :name %>
+  </div>
+
+  <div class = "form-group">
+    <%=f.label :description, "Enter Description" %><br>
+    <%=f.text_area :description %>
+  </div>
+
+  <%= f.submit(:class => "btn btn-primary") %>
+<% end %>

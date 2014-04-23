@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  database: charity_scramble_development
+
+test:
+  adapter: postgresql
+  database: charity_scramble_test
+
